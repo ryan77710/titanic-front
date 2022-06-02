@@ -6,7 +6,7 @@ const Stat = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [age, setAge] = useState("");
-  const [pclass, setPclass] = useState("");
+  const [pclass, setPclass] = useState(0);
   const [sex, setSex] = useState("");
   const [data, setData] = useState([]);
   const [survived, setSurvived] = useState("");
@@ -15,19 +15,21 @@ const Stat = (props) => {
       try {
         const response = await axios.get(`http://localhost:3000/search?Pclass=${Number(pclass) === 0 ? "" : pclass}&Sex=${sex}&Age=${age}&Survived=${survived ? true : ""}`);
         setData(response.data.customers);
-        console.log(response.data.customers);
         setIsLoading(false);
-        // sortAge(response.data.customers, age);
       } catch (error) {}
     };
 
     fetchData();
   }, [age, pclass, sex, survived]);
 
-  const sortAge = (data, age) => {
-    const newTab = [...data];
-    const result = newTab.filter((ele) => ele.Age === age);
-    return result;
+  const calAverage = (data) => {
+    const tab = [];
+    data.map((ele) => {
+      tab.push(ele.Age);
+      return "";
+    });
+    const average = tab.reduce((a, b) => a + b, 0) / tab.length;
+    return ` age average :${average.toFixed(2)}`;
   };
   const filterSex = (data, sex) => {
     const newTab = [...data];
@@ -41,21 +43,6 @@ const Stat = (props) => {
     return result;
   };
 
-  const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-  const dataset = [
-    {
-      label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-    },
-  ];
   ////////////
   const labelsSex = ["Male", "female"];
   const datasetSex = [
@@ -98,7 +85,7 @@ const Stat = (props) => {
             <label>
               Sex
               <select type="number" value={sex} onChange={handleChangeSex}>
-                <option value="">all</option>
+                <option value="">All</option>
                 <option value="male">male</option>
                 <option value="female">female</option>
               </select>
@@ -112,6 +99,7 @@ const Stat = (props) => {
             <PieChart dataset={datasetSex} labels={labelsSex} />
             <PieChart dataset={datasetPclass} labels={labelsPclass} />
           </div>
+          <p>{calAverage(data)}</p>
         </div>
       )}
     </div>

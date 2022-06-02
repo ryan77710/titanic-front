@@ -8,7 +8,7 @@ const Header = (props) => {
         <button
           onClick={() => {
             setIsLogin(false);
-            toast("disconnected");
+            toast.warning("disconnected");
           }}
         >
           Log out

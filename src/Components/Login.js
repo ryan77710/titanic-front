@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const Login = (props) => {
-  const { isLogin, setIsLogin } = props;
+  const { setIsLogin } = props;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,10 +18,10 @@ const Login = (props) => {
     try {
       const response = await axios.post("http://localhost:3000/login", { email: email, password: password });
       console.log(response);
-      toast("connected");
+      toast.info("connected");
       setIsLogin(true);
     } catch (e) {
-      toast("error re try :(");
+      toast.error("error re try :(");
     }
   };
   const SignUp = async () => {
@@ -31,10 +31,10 @@ const Login = (props) => {
         password: password,
       };
       await axios.post("http://localhost:3000/signup", data);
-      toast("account created");
+      toast.succes("account created");
       login();
     } catch (e) {
-      toast("error re try :(");
+      toast.error("error re try :(");
     }
   };
   return (
