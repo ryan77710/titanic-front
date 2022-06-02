@@ -7,6 +7,16 @@ header {
   font-weight: bold;
   font-size: 30;
 }
+header button {
+  box-sizing: border-box;
+  padding: 5px;
+  color: white;
+  background-color: tomato;
+  border: none;
+  margin-left: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+}
 main {
   height: 85vh;
   display: flex;

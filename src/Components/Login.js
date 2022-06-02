@@ -16,7 +16,8 @@ const Login = (props) => {
   };
   const login = async () => {
     try {
-      await axios.post("http://localhost:3000/login", { email: email, password: password });
+      const response = await axios.post("http://localhost:3000/login", { email: email, password: password });
+      console.log(response);
       toast("connected");
       setIsLogin(true);
     } catch (e) {
