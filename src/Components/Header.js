@@ -1,4 +1,4 @@
 const Header = () => {
-  return <header> titanic analitic</header>;
+  return <header> Titanic analitic</header>;
 };
 export default Header;
