@@ -4,6 +4,7 @@ header {
   justify-content: center;
   align-items: center;
   background-color: rgb(191, 233, 250);
+  background-color: white;
   font-weight: bold;
   font-size: 30;
 }
@@ -31,4 +32,6 @@ footer {
   align-items: center;
   background-color: rgb(191, 233, 250);
   color: white;
+  font-weight: bold;
+  font-size: 50;
 }

@@ -28,9 +28,27 @@ const Stat = (props) => {
       tab.push(ele.Age);
       return "";
     });
+
     const average = tab.reduce((a, b) => a + b, 0) / tab.length;
     return ` age average :${average.toFixed(2)}`;
   };
+  function calcEcartType(arr) {
+    let tab = [];
+    arr.map((ele) => {
+      tab.push(ele.Age);
+      return "";
+    });
+    let mean =
+      tab.reduce((acc, curr) => {
+        return acc + curr;
+      }, 0) / tab.length;
+    tab = tab.map((k) => {
+      return (k - mean) ** 2;
+    });
+    let sum = tab.reduce((acc, curr) => acc + curr, 0);
+    // let variance = sum / tab.length;
+    return Math.sqrt(sum / tab.length).toFixed(2);
+  }
   const filterSex = (data, sex) => {
     const newTab = [...data];
 
@@ -99,7 +117,10 @@ const Stat = (props) => {
             <PieChart dataset={datasetSex} labels={labelsSex} />
             <PieChart dataset={datasetPclass} labels={labelsPclass} />
           </div>
-          <p>{calAverage(data)}</p>
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <p>{calAverage(data)}</p>
+            <p>Ecart type : {calcEcartType(data)}</p>
+          </div>
         </div>
       )}
     </div>
