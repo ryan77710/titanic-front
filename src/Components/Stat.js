@@ -113,7 +113,7 @@ const Stat = (props) => {
               <input type="number" min="0" max="3" value={pclass} onChange={handleChangePclass} />
             </label>
           </div>
-          <div style={{ display: "flex" }}>
+          <div className="chart-container" style={{ display: "flex" }}>
             <PieChart dataset={datasetSex} labels={labelsSex} />
             <PieChart dataset={datasetPclass} labels={labelsPclass} />
           </div>
