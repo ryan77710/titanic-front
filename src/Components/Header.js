@@ -3,9 +3,10 @@ const Header = (props) => {
   const { isLogin, setIsLogin } = props;
   return (
     <header>
-      Titanic analitic{" "}
+      <span className="slide-in-left">Titanic analitic</span>
       {isLogin ? (
         <button
+          className="slide-in-right vibrate-1"
           onClick={() => {
             setIsLogin(false);
             toast.warning("disconnected");

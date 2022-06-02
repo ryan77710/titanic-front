@@ -92,15 +92,15 @@ const Stat = (props) => {
       ) : (
         <div>
           <div style={{ display: "flex", justifyContent: "space-evenly", alignItems: "center" }}>
-            <label htmlFor="">
-              {survived ? "only survived" : "all"}
+            <label className="flicker-in-1" htmlFor="">
+              {survived ? "only survived" : "All "}
               <input onClick={() => setSurvived((x) => !x)} type="checkbox" value={survived} />
             </label>
-            <label>
+            <label className="vibrate-1">
               Age
               <input type="number" value={age} onChange={handleChangeAge} />
             </label>
-            <label>
+            <label className="vibrate-1">
               Sex
               <select type="number" value={sex} onChange={handleChangeSex}>
                 <option value="">All</option>
@@ -108,7 +108,7 @@ const Stat = (props) => {
                 <option value="female">female</option>
               </select>
             </label>
-            <label>
+            <label className="vibrate-1s">
               Pclass
               <input type="number" min="0" max="3" value={pclass} onChange={handleChangePclass} />
             </label>
