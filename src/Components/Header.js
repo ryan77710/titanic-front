@@ -4,7 +4,7 @@ const Header = (props) => {
   const { isLogin, setIsLogin } = props;
 
   const ok = async () => {
-    await axios.get(`${process.env.REACT_APP_API_URL}/ok`);
+    await axios.get(`${process.env.REACT_APP_API_URL}ok`);
   };
   return (
     <header>
