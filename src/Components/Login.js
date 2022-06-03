@@ -25,13 +25,17 @@ const Login = (props) => {
   };
   const SignUp = async () => {
     try {
-      const data = {
-        email: email,
-        password: password,
-      };
-      await axios.post("http://localhost:3000/signup", data);
-      toast.succes("account created");
-      login();
+      if (password.length === 0 || email.length === 0) {
+        toast.error("missing field");
+      } else {
+        const data = {
+          email: email,
+          password: password,
+        };
+        await axios.post("http://localhost:3000/signup", data);
+        toast.success("account created");
+        login();
+      }
     } catch (e) {
       toast.error("error re try :(");
     }
