@@ -17,7 +17,7 @@ const Stat = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/search?Pclass=${Number(pclass) === 0 ? "" : pclass}&Embarked=${embarked}&Sex=${sex}&Age=${age}&Survived=${survived ? true : ""}`
+          `${process.env.REACT_APP_API_URL}search?Pclass=${Number(pclass) === 0 ? "" : pclass}&Embarked=${embarked}&Sex=${sex}&Age=${age}&Survived=${survived ? true : ""}`
         );
         setData(response.data.customers);
 

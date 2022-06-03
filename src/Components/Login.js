@@ -16,7 +16,7 @@ const Login = (props) => {
   };
   const login = async () => {
     try {
-      await axios.post("http://localhost:3000/login", { email: email, password: password });
+      await axios.post(`${process.env.REACT_APP_API_URL}login`, { email: email, password: password });
       toast.info("connected");
       setIsLogin(true);
     } catch (e) {
@@ -32,7 +32,7 @@ const Login = (props) => {
           email: email,
           password: password,
         };
-        await axios.post("http://localhost:3000/signup", data);
+        await axios.post(`${process.env.REACT_APP_API_URL}signup`, data);
         toast.success("account created");
         login();
       }
