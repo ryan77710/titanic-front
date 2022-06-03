@@ -3,7 +3,7 @@ const Header = (props) => {
   const { isLogin, setIsLogin } = props;
   return (
     <header>
-      <span className="slide-in-left">Titanic analitic</span>
+      <span className="slide-in-left">Titanic Analytic</span>
       {isLogin ? (
         <button
           className="slide-in-right vibrate-1"

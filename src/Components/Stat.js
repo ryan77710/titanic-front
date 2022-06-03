@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+
 import PieChart from "./PieChart";
+
 import axios from "axios";
 
-const Stat = (props) => {
+const Stat = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [age, setAge] = useState("");
@@ -10,17 +12,21 @@ const Stat = (props) => {
   const [sex, setSex] = useState("");
   const [data, setData] = useState([]);
   const [survived, setSurvived] = useState("");
+  const [embarked, setEmbarked] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/search?Pclass=${Number(pclass) === 0 ? "" : pclass}&Sex=${sex}&Age=${age}&Survived=${survived ? true : ""}`);
+        const response = await axios.get(
+          `http://localhost:3000/search?Pclass=${Number(pclass) === 0 ? "" : pclass}&Embarked=${embarked}&Sex=${sex}&Age=${age}&Survived=${survived ? true : ""}`
+        );
         setData(response.data.customers);
+
         setIsLoading(false);
       } catch (error) {}
     };
 
     fetchData();
-  }, [age, pclass, sex, survived]);
+  }, [age, pclass, sex, survived, embarked]);
 
   const calAverage = (data) => {
     const tab = [];
@@ -30,7 +36,7 @@ const Stat = (props) => {
     });
 
     const average = tab.reduce((a, b) => a + b, 0) / tab.length;
-    return ` age average :${average.toFixed(2)}`;
+    return ` Age Average :${average.toFixed(2)}`;
   };
   function calcEcartType(arr) {
     let tab = [];
@@ -60,6 +66,11 @@ const Stat = (props) => {
     const result = newTab.filter((ele) => ele.Pclass === Pclass);
     return result;
   };
+  const filterEmbarked = (data, Embarked) => {
+    const newTab = [...data];
+    const result = newTab.filter((ele) => ele.Embarked === Embarked);
+    return result;
+  };
 
   ////////////
   const labelsSex = ["Male", "female"];
@@ -79,11 +90,21 @@ const Stat = (props) => {
       backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(153, 102, 255, 0.2)"],
     },
   ];
+  //////////////
+  const labelsEmbarked = ["Embarked S", "Embarked C", "Embarked Q"];
+  const datasetEmbarked = [
+    {
+      label: "Pclass",
+      data: [filterEmbarked(data, "S").length, filterEmbarked(data, "C").length, filterEmbarked(data, "Q").length],
+      backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(153, 102, 255, 0.2)"],
+    },
+  ];
 
   const handleChangeAge = (e) => setAge(e.target.value);
   const handleChangeSex = (e) => setSex(e.target.value);
 
   const handleChangePclass = (e) => setPclass(e.target.value);
+  const handleChangeEmbarked = (e) => setEmbarked(e.target.value);
 
   return (
     <div>
@@ -98,7 +119,7 @@ const Stat = (props) => {
             </label>
             <label className="vibrate-1">
               Age
-              <input type="number" value={age} onChange={handleChangeAge} />
+              <input min="1" type="number" value={age} onChange={handleChangeAge} />
             </label>
             <label className="vibrate-1">
               Sex
@@ -112,14 +133,24 @@ const Stat = (props) => {
               Pclass
               <input type="number" min="0" max="3" value={pclass} onChange={handleChangePclass} />
             </label>
+            <label className="vibrate-1">
+              Embarked
+              <select type="text" value={embarked} onChange={handleChangeEmbarked}>
+                <option value="">All</option>
+                <option value="S">S</option>
+                <option value="Q">Q</option>
+                <option value="C">C</option>
+              </select>
+            </label>
           </div>
           <div className="chart-container" style={{ display: "flex" }}>
             <PieChart dataset={datasetSex} labels={labelsSex} />
             <PieChart dataset={datasetPclass} labels={labelsPclass} />
+            <PieChart dataset={datasetEmbarked} labels={labelsEmbarked} />
           </div>
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <p>{calAverage(data)}</p>
-            <p>Ecart type : {calcEcartType(data)}</p>
+            <p>Ecart Type : {calcEcartType(data)}</p>
           </div>
         </div>
       )}
