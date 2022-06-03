@@ -8,7 +8,7 @@ const Header = (props) => {
 
       {isLogin ? (
         <button
-          className="slide-in-right vibrate-1"
+          className="slide-in-right"
           onClick={() => {
             setIsLogin(false);
             toast.warning("disconnected");
